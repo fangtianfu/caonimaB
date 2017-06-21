@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |s|
 
-s.name        = "cainimaB"
+s.name        = "caonimaB"
 
 s.version      = "0.0.1"
 
