@@ -13,11 +13,11 @@
 
 typedef NS_ENUM(NSInteger, ADSConnectState) {
     ADSConnectState_None,
-    ADSConnectState_Connecting,
-    ADSConnectState_Connected,
+    ADSConnectState_Connecting, // 连接中
+    ADSConnectState_Connected, // 连接成功
     ADSConnectState_NotificationFinshed, // 使能成功
-    ADSConnectState_TimeOut,
-    ADSConnectState_Faiure,
+    ADSConnectState_TimeOut, // 连接超时
+    ADSConnectState_Faiure, // 设备断开连接
 };
 
 
@@ -25,6 +25,7 @@ typedef NS_ENUM(NSInteger, ADSConnectState) {
 
 @protocol ADSBLECenterManagerANCSDelegate <NSObject>
 
+// 寻找连接ANCS的代理
 - (void)findANCSPeripherals:(NSArray<ADSBLEPeripheralModel *> *)peripheralModel;
 
 @end
@@ -53,10 +54,13 @@ typedef NS_ENUM(NSInteger, ADSConnectState) {
 
 + (instancetype)shareADSBLECenterManager:(dispatch_queue_t)queue;
 
+// 连接设备
 - (void)connectPeripheral:(ADSBLEPeripheralModel *)peripheralModel;
 
+// 断开连接
 - (void)cancelPeripheralConnection:(ADSBLEPeripheralModel *)peripheralModel;
 
+// 开始扫描
 - (void)startScan:(NSArray<NSString *> *)uuidArray;
 
 - (void)stopScan;

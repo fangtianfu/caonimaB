@@ -23,15 +23,15 @@ typedef void(^ReceiveDataBlock)(CBCharacteristic *characteristic);
 
 @property (nonatomic,assign) NSInteger rssi;
 
-@property (nonatomic,assign) ADSConnectState connectState;
+@property (nonatomic,assign) ADSConnectState connectState; // 连接状态
 
-@property (nonatomic,assign) NSTimeInterval connectTimeOut;
+@property (nonatomic,assign) NSTimeInterval connectTimeOut; // 连接超时的时间 默认是3.0
 
-@property (nonatomic,copy) ConnectStateBlock connectStateBlock;
+@property (nonatomic,copy) ConnectStateBlock connectStateBlock; // 连接状态的回调块
 
-@property (nonatomic,copy) NotificationBlock notificationBlock;
+@property (nonatomic,copy) NotificationBlock notificationBlock; // 使能通知成功
 
-@property (nonatomic,copy) ReceiveDataBlock receiveDataBlock;
+@property (nonatomic,copy) ReceiveDataBlock receiveDataBlock; // 收到消息回复的回调
 
 /**
  初始化 服务与特征 UUID数组
