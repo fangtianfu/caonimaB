@@ -10,15 +10,15 @@
 
 @implementation ADSBLEDataHandle
 
-+ (void)sendDataWithPeripheralModel:(ADSBLEPeripheralModel *)peripheralModel sCBUUID:(NSString *)sCBUUID cCBUUID:(NSString *)cCBUUID {
+- (void)sendDataWithPeripheralModel:(ADSBLEPeripheralModel *)peripheralModel sCBUUID:(NSString *)sCBUUID cCBUUID:(NSString *)cCBUUID {
     
 }
 
-+ (void)resolveUpdateValueForCharacteristic:(NSData *)value {
+- (void)resolveUpdateValueForCharacteristic:(NSData *)value {
     
 }
 
-+ (void)resolveAdvertisementData:(NSDictionary<NSString *, id> *)advertisementData {
+- (void)resolveAdvertisementData:(NSDictionary<NSString *, id> *)advertisementData {
     
     
 }
