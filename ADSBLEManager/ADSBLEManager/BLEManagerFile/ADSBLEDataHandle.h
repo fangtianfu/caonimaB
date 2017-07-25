@@ -28,20 +28,20 @@
  @param sCBUUID 服务UUID
  @param cCBUUID 特征UUID
  */
-+ (void)sendDataWithPeripheralModel:(ADSBLEPeripheralModel *)peripheralModel sCBUUID:(NSString *)sCBUUID cCBUUID:(NSString *)cCBUUID;
+- (void)sendDataWithPeripheralModel:(ADSBLEPeripheralModel *)peripheralModel sCBUUID:(NSString *)sCBUUID cCBUUID:(NSString *)cCBUUID;
 
 /**
  解析蓝牙返回的数据方法
 
  @param value 数据
  */
-+ (void)resolveUpdateValueForCharacteristic:(NSData *)value;
+- (void)resolveUpdateValueForCharacteristic:(NSData *)value;
 
 /**
  解析广播包内容
 
  @param advertisementData 广播包字典
  */
-+ (void)resolveAdvertisementData:(NSDictionary<NSString *, id> *)advertisementData;
+- (void)resolveAdvertisementData:(NSDictionary<NSString *, id> *)advertisementData;
 
 @end
