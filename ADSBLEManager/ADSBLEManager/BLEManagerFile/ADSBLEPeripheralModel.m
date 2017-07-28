@@ -13,23 +13,15 @@
 static NSArray *_serviceArray = nil;
 static NSArray *_characteristicsArray = nil;
 
-static ADSBLECenterManager *centerManager = nil;
-
 @interface ADSBLEPeripheralModel ()<CBPeripheralDelegate>
 
 @property (nonatomic,strong) NSTimer *connectTimer;
 
+@property (nonatomic,strong) ADSBLECenterManager *centerManager;
+
 @end
 
 @implementation ADSBLEPeripheralModel
-
-+ (void)load {
-    
-    if (!centerManager) {
-        centerManager = [ADSBLECenterManager shareADSBLECenterManager:dispatch_queue_create("BLEQueue", NULL)];
-    }
-    
-}
 
 - (instancetype)init {
     
@@ -37,6 +29,7 @@ static ADSBLECenterManager *centerManager = nil;
     if (self) {
         
         self.connectTimeOut = 3.0;
+        self.centerManager = [ADSBLECenterManager shareADSBLECenterManager:dispatch_queue_create("BLEQueue", NULL)];
         
     }
     return self;
@@ -72,7 +65,7 @@ static ADSBLECenterManager *centerManager = nil;
                     self.connectStateBlock(self);
                 }
                 
-                [centerManager cancelPeripheralConnection:self];
+                [self.centerManager cancelPeripheralConnection:self];
                 
             } userInfo:nil repeats:NO];
             
@@ -128,7 +121,7 @@ static ADSBLECenterManager *centerManager = nil;
             [BLEUtility setNotificationForCharacteristic:peripheral sCBUUID:service.UUID cCBUUID:characteristic.UUID enable:YES];
             
         }
-    
+        
     }
     
 }
@@ -140,6 +133,12 @@ static ADSBLECenterManager *centerManager = nil;
     }
     else {
         _connectState = ADSConnectState_NotificationFinshed;
+        
+        // 连接完成之后产生回调
+        if ([self.centerManager.delegate respondsToSelector:@selector(disConnectPeripheral:error:)] && self.centerManager.delegate) {
+            [self.centerManager.delegate disConnectPeripheral:self error:error];
+        }
+        
         if (self.notificationBlock) {
             self.notificationBlock(characteristic.UUID.UUIDString,self);
         }

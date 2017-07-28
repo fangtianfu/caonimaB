@@ -14,25 +14,17 @@
 
 static ADSPeripheralList *peripheralList = nil;
 
-static ADSBLECenterManager *centerManager = nil;
-
 @interface ADSPeripheralList ()<ADSBLECenterManagerDelegate>
 
 @property (nonatomic,strong) NSMutableDictionary *scanDictionary;
 
 @property (nonatomic,strong) NSTimer *scanTimer;
 
+@property (nonatomic,strong) ADSBLECenterManager *centerManager;
+
 @end
 
 @implementation ADSPeripheralList
-
-+ (void)load {
-    
-    if (!centerManager) {
-        centerManager = [ADSBLECenterManager shareADSBLECenterManager:dispatch_queue_create("BLEQueue", NULL)];
-    }
-    
-}
 
 + (instancetype)shareADSPeripheralList {
     
@@ -44,7 +36,9 @@ static ADSBLECenterManager *centerManager = nil;
         
         peripheralList.scanDictionary = [NSMutableDictionary new];
         
-        centerManager.delegate = peripheralList;
+        peripheralList.centerManager = [ADSBLECenterManager shareADSBLECenterManager:dispatch_queue_create("BLEQueue", NULL)];
+        peripheralList.centerManager.delegate = peripheralList;
+        
     });
     
     return peripheralList;
@@ -52,7 +46,7 @@ static ADSBLECenterManager *centerManager = nil;
 
 - (void)startScanPeripheral:(NSArray<NSString *> *)array {
     
-    [centerManager startScan:array];
+    [self.centerManager startScan:array];
     
     self.scanTimer = [XYWeakTimer scheduledTimerWithTime:self.scanTimer interval:self.scanInterval target:self timerBlock:^(NSTimer *timer) {
         
@@ -71,7 +65,7 @@ static ADSBLECenterManager *centerManager = nil;
     [self.scanTimer invalidate];
     self.scanTimer = nil;
     
-    [centerManager stopScan];
+    [self.centerManager stopScan];
     
     [self.scanDictionary removeAllObjects];
     
@@ -79,13 +73,13 @@ static ADSBLECenterManager *centerManager = nil;
 
 - (void)listConnectPeripheral:(ADSBLEPeripheralModel *)peripheralModel {
     
-    [centerManager connectPeripheral:peripheralModel];
+    [self.centerManager connectPeripheral:peripheralModel];
     
 }
 
 - (void)listCancelPeripheralConnection:(ADSBLEPeripheralModel *)peripheralModel {
     
-    [centerManager cancelPeripheralConnection:peripheralModel];
+    [self.centerManager cancelPeripheralConnection:peripheralModel];
     
 }
 

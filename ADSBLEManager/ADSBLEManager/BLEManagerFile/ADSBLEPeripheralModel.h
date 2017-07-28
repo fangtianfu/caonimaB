@@ -35,7 +35,7 @@ typedef void(^ReceiveDataBlock)(CBCharacteristic *characteristic);
 
 /**
  初始化 服务与特征 UUID数组
-
+ 
  @param serviceArray 服务UUID数组
  @param characteristicsArray 特征UUID数组
  */
