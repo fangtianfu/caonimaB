@@ -56,7 +56,12 @@ static NSArray *scanUUIDArray = nil;
         // 寻找ANCS设备列表
         if (self.ancsDelegate && [self.ancsDelegate respondsToSelector:@selector(findANCSPeripherals:)]) {
             
-            NSArray *array = [self.centralManager retrieveConnectedPeripheralsWithServices:scanUUIDArray];
+            NSMutableArray *uuid = [[NSMutableArray alloc] init];
+            for (NSString *string in scanUUIDArray) {
+                [uuid addObject:[CBUUID UUIDWithString:string]];
+            }
+            
+            NSArray *array = [self.centralManager retrieveConnectedPeripheralsWithServices:uuid];
             
             NSMutableArray *peripherals = [[NSMutableArray alloc] init];
             for (CBPeripheral *peripheral in array) {
@@ -90,7 +95,7 @@ static NSArray *scanUUIDArray = nil;
                 [uuid addObject:[CBUUID UUIDWithString:string]];
             }
             
-            scanUUIDArray = uuid;
+            scanUUIDArray = uuidArray;
             
             [self.centralManager scanForPeripheralsWithServices:uuid options:nil];
         }
@@ -113,7 +118,7 @@ static NSArray *scanUUIDArray = nil;
 - (void)connectPeripheral:(ADSBLEPeripheralModel *)peripheralModel {
     
     @try {
-       
+        
         [self.centralManager connectPeripheral:peripheralModel.peripheral options:nil];
         [self.mutableDictionary setObject:peripheralModel forKey:[peripheralModel.peripheral.identifier UUIDString]];
         
