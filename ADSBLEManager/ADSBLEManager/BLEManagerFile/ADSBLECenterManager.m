@@ -73,9 +73,7 @@ static NSArray *scanUUIDArray = nil;
                 
             }
             
-            if (peripherals.count > 0) {
-                [self.ancsDelegate findANCSPeripherals:peripherals];
-            }
+            [self.ancsDelegate findANCSPeripherals:peripherals];
             
         }
         
