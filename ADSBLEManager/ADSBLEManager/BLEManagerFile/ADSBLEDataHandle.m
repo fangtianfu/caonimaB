@@ -18,8 +18,9 @@
     
 }
 
-- (void)resolveAdvertisementData:(NSDictionary<NSString *, id> *)advertisementData {
+- (NSDictionary<NSString *, NSString *> *)resolveAdvertisementData:(NSDictionary<NSString *, id> *)advertisementData {
     
+    return nil;
     
 }
 
