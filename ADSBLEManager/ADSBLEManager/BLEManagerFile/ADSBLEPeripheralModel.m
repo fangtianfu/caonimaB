@@ -116,7 +116,7 @@ static NSArray *_characteristicsArray = nil;
     
     for (CBCharacteristic *characteristic in service.characteristics) {
         
-        if ((characteristic.properties & CBCharacteristicPropertyNotify) || (characteristic.properties & CBCharacteristicPropertyIndicate)) {
+        if ((characteristic.properties == CBCharacteristicPropertyNotify) || (characteristic.properties == CBCharacteristicPropertyIndicate)) {
             
             [BLEUtility setNotificationForCharacteristic:peripheral sCBUUID:service.UUID cCBUUID:characteristic.UUID enable:YES];
             
@@ -132,16 +132,20 @@ static NSArray *_characteristicsArray = nil;
         NSLog(@"didUpdateNotificationStateForCharacteristic %@",error);
     }
     else {
-        _connectState = ADSConnectState_NotificationFinshed;
         
-        // 连接完成之后产生回调
-        if ([self.centerManager.delegate respondsToSelector:@selector(disConnectPeripheral:error:)] && self.centerManager.delegate) {
-            [self.centerManager.delegate disConnectPeripheral:self error:error];
+        if (characteristic.properties == CBCharacteristicPropertyNotify) {
+            _connectState = ADSConnectState_NotificationFinshed;
+            
+            // 连接完成之后产生回调
+            if ([self.centerManager.delegate respondsToSelector:@selector(disConnectPeripheral:error:)] && self.centerManager.delegate) {
+                [self.centerManager.delegate disConnectPeripheral:self error:error];
+            }
+            
+            if (self.notificationBlock) {
+                self.notificationBlock(characteristic.UUID.UUIDString,self);
+            }
         }
         
-        if (self.notificationBlock) {
-            self.notificationBlock(characteristic.UUID.UUIDString,self);
-        }
     }
     
 }
