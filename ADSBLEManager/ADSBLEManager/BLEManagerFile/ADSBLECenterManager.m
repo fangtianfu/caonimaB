@@ -13,6 +13,8 @@ static ADSBLECenterManager *bleCenterManager = nil;
 
 static NSArray *scanUUIDArray = nil;
 
+static NSArray *scanAncsUUIDArray = nil;
+
 @interface ADSBLECenterManager ()<CBCentralManagerDelegate>
 
 @property (nonatomic,strong) CBCentralManager *centralManager;
@@ -51,13 +53,13 @@ static NSArray *scanUUIDArray = nil;
         
         // 重新开启扫描
         [self stopScan];
-        [self startScan:scanUUIDArray];
+        [self startScan:scanUUIDArray ancsUUIDArray:scanAncsUUIDArray];
         
         // 寻找ANCS设备列表
         if (self.ancsDelegate && [self.ancsDelegate respondsToSelector:@selector(findANCSPeripherals:)]) {
             
             NSMutableArray *uuid = [[NSMutableArray alloc] init];
-            for (NSString *string in scanUUIDArray) {
+            for (NSString *string in scanAncsUUIDArray) {
                 [uuid addObject:[CBUUID UUIDWithString:string]];
             }
             
@@ -81,11 +83,12 @@ static NSArray *scanUUIDArray = nil;
     
 }
 
-- (void)startScan:(NSArray<NSString *> *)uuidArray {
+- (void)startScan:(NSArray<NSString *> *)uuidArray ancsUUIDArray:(NSArray<NSString *> *)ancsUUIDArray {
     
     self.isScaning = YES;
     
     scanUUIDArray = uuidArray;
+    scanAncsUUIDArray = ancsUUIDArray;
     
     if (self.centralManager.state == CBManagerStatePoweredOn) {
         

@@ -28,7 +28,7 @@ typedef void(^PeripheralListBlock)(NSArray *peripheralList);
 
 @property (nonatomic,weak) id <ADSPeripheralListDelegate> delegate;
 
-- (void)startScanPeripheral:(NSArray<NSString *> *)array;
+- (void)startScanPeripheral:(NSArray<NSString *> *)array ancsUUIDArray:(NSArray<NSString *> *)ancsUUIDArray;
 
 - (void)stopScanPeripheral;
 

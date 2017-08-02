@@ -44,9 +44,9 @@ static ADSPeripheralList *peripheralList = nil;
     return peripheralList;
 }
 
-- (void)startScanPeripheral:(NSArray<NSString *> *)array {
+- (void)startScanPeripheral:(NSArray<NSString *> *)array ancsUUIDArray:(NSArray<NSString *> *)ancsUUIDArray {
     
-    [self.centerManager startScan:array];
+    [self.centerManager startScan:array ancsUUIDArray:ancsUUIDArray];
     
     self.scanTimer = [XYWeakTimer scheduledTimerWithTime:self.scanTimer interval:self.scanInterval target:self timerBlock:^(NSTimer *timer) {
         

@@ -61,7 +61,7 @@ typedef NS_ENUM(NSInteger, ADSConnectState) {
 - (void)cancelPeripheralConnection:(ADSBLEPeripheralModel *)peripheralModel;
 
 // 开始扫描
-- (void)startScan:(NSArray<NSString *> *)uuidArray;
+- (void)startScan:(NSArray<NSString *> *)uuidArray ancsUUIDArray:(NSArray<NSString *> *)ancsUUIDArray;
 
 - (void)stopScan;
 
