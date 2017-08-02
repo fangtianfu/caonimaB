@@ -85,19 +85,18 @@ static NSArray *scanUUIDArray = nil;
     
     self.isScaning = YES;
     
-    @try {
-        if (self.centralManager.state == CBManagerStatePoweredOn) {
-            
-            NSMutableArray *uuid = [[NSMutableArray alloc] init];
-            for (NSString *string in uuidArray) {
-                [uuid addObject:[CBUUID UUIDWithString:string]];
-            }
-            
-            scanUUIDArray = uuidArray;
-            
-            [self.centralManager scanForPeripheralsWithServices:uuid options:nil];
+    scanUUIDArray = uuidArray;
+    
+    if (self.centralManager.state == CBManagerStatePoweredOn) {
+        
+        NSMutableArray *uuid = [[NSMutableArray alloc] init];
+        for (NSString *string in uuidArray) {
+            [uuid addObject:[CBUUID UUIDWithString:string]];
         }
-    } @catch (NSException *exception) {
+        
+        [self.centralManager scanForPeripheralsWithServices:uuid options:nil];
+    }
+    else {
         NSLog(@"蓝牙扫描失败!");
     }
     
