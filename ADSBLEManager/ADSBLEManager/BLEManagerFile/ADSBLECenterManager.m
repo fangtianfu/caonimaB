@@ -15,7 +15,7 @@ static NSArray *scanUUIDArray = nil;
 
 static NSArray *scanAncsUUIDArray = nil;
 
-@interface ADSBLECenterManager ()<CBCentralManagerDelegate>
+@interface ADSBLECenterManager ()
 
 @property (nonatomic,strong) NSMutableDictionary *mutableDictionary;
 

@@ -44,7 +44,7 @@ typedef NS_ENUM(NSInteger, ADSConnectState) {
 
 @end
 
-@interface ADSBLECenterManager : NSObject
+@interface ADSBLECenterManager : NSObject<CBCentralManagerDelegate>
 
 @property (nonatomic,strong) CBCentralManager *centralManager;
 
