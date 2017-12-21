@@ -137,8 +137,8 @@ static NSArray *_characteristicsArray = nil;
             _connectState = ADSConnectState_NotificationFinshed;
             
             // 连接完成之后产生回调
-            if ([self.centerManager.delegate respondsToSelector:@selector(disConnectPeripheral:error:)] && self.centerManager.delegate) {
-                [self.centerManager.delegate disConnectPeripheral:self error:error];
+            if ([self.centerManager.delegate respondsToSelector:@selector(didConnectPeripheral:error:)] && self.centerManager.delegate) {
+                [self.centerManager.delegate didConnectPeripheral:self error:error];
             }
             
             if (self.notificationBlock) {

@@ -14,7 +14,7 @@ typedef void(^PeripheralListBlock)(NSArray *peripheralList);
 
 @protocol ADSPeripheralListDelegate <NSObject>
 
-- (void)listDisConnectPeripheral:(ADSBLEPeripheralModel *)peripheralModel;
+- (void)listDidConnectPeripheral:(ADSBLEPeripheralModel *)peripheralModel;
 
 - (void)listDidDisconnectPeripheral:(ADSBLEPeripheralModel *)peripheralModel;
 

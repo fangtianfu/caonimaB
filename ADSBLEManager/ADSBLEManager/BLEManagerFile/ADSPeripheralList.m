@@ -91,12 +91,12 @@ static ADSPeripheralList *peripheralList = nil;
 }
 
 // 连接完成的回调
-- (void)disConnectPeripheral:(ADSBLEPeripheralModel *)peripheralModel error:(NSError *)error {
+- (void)didConnectPeripheral:(ADSBLEPeripheralModel *)peripheralModel error:(NSError *)error {
     
     [self.scanDictionary removeObjectForKey:peripheralModel.peripheral.identifier.UUIDString];
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(listDidDisconnectPeripheral:)]) {
-        [self.delegate listDisConnectPeripheral:peripheralModel];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(listDidConnectPeripheral:)]) {
+        [self.delegate listDidConnectPeripheral:peripheralModel];
     }
     
 }

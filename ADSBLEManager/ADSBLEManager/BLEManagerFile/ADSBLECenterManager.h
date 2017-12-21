@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, ADSConnectState) {
 
 @optional
 // 连接完成的回调
-- (void)disConnectPeripheral:(ADSBLEPeripheralModel *)peripheralModel error:(NSError *)error;
+- (void)didConnectPeripheral:(ADSBLEPeripheralModel *)peripheralModel error:(NSError *)error;
 
 // 扫描到设备的回调
 - (void)didDiscoverPeripheral:(ADSBLEPeripheralModel *)peripheralModel error:(NSError *)error;
